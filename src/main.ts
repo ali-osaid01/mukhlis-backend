@@ -17,8 +17,8 @@ async function bootstrap() {
   app.useGlobalFilters(new ErrorLoggingFilter());
 
   const PORT = process.env.PORT || 3000;
+  console.log(`SERVER IS UP & RUNNING ON -> ${PORT} 🚀`);
   await app.listen(PORT);
-  console.log(`Server is running on port ${PORT}`);
 }
 
 bootstrap();
