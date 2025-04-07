@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  products  Product[] @relation("CategoryProducts")
+}
+
+model Product {
+  id          Int         @id @default(autoincrement())
+  name        String
+  image       String
+  description String
+  price       Float
+  stock       Int?
+  categoryId  Int
+  category    Category    @relation("CategoryProducts", fields: [categoryId], references: [id])
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  orderItems  OrderItem[]
+}
+
+model OrderDetails {
+  id         Int         @id @default(autoincrement())
+  userId     Int
+  status     OrderStatus
+  address    String
+  paymentStatus paymentStatus
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  totalPrice Float       @default(0.0)
+  orderItems OrderItem[]
+}
+
+model OrderItem {
+  id        Int          @id @default(autoincrement())
+  orderId   Int
+  productId Int
+  quantity  Int
+  order     OrderDetails @relation(fields: [orderId], references: [id])
+  product   Product      @relation(fields: [productId], references: [id])
+}
+
+enum OrderStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum paymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
