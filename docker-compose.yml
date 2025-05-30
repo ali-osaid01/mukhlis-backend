@@ -1,8 +1,8 @@
 version: "3.9"
 services:
-  mukhlish-postgres:
+  ai-agent-mod:
     image: postgres:latest
-    container_name: mukhlish-postgres
+    container_name: ai-agent-mod
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: strong

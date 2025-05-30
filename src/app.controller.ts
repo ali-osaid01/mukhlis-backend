@@ -9,6 +9,6 @@ export class AppController {
   @Get()
   healthCheck(@Res() res: Response) {
     const response = this.appService.healthCheck();
-    res.status(response.code).json(response);
+    res.status(response.statusCode).json(response);
   }
 }
