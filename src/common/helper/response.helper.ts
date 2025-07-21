@@ -19,7 +19,7 @@
       msg?: string;
       data?: T;
       total?: number;
-      token?: JwtToken;
+      token?: string;
       success?: boolean;
     }): ApiResponse<T> {
       const {
@@ -32,7 +32,7 @@
       } = options;
   
       const response: ApiResponse<T> = {
-        code: statusCode,
+        statusCode: statusCode,
         status: success !== undefined ? success : statusCode < 400,
         msg: msg || ResponseApiHelper.getDefaultMessage(statusCode),
         data,
@@ -42,14 +42,11 @@
         response.total = total;
       }
   
-      if (token) {
-        response.accessToken = token.accessToken;
-        response.refreshToken = token.refreshToken;
-      }
+      if (token) response.accessToken = token;
+      
   
       return response;
     }
   }
-  
-  export const ResponseHelper = new ResponseApiHelper();
+    export const ResponseHelper = new ResponseApiHelper();
   

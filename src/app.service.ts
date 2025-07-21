@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { ResponseHelper } from './common/helper/response.helper';
-import pkg from '../package.json'; 
 
 @Injectable()
 export class AppService {
